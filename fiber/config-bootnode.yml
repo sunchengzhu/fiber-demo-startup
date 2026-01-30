@@ -33,7 +33,7 @@ ckb:
     - name: simple_udt
       script:
         code_hash: 0xe1e354d6d643ad42724d40967e334984534e0367405c5ae42a9d7d63d77df419
-        hash_type: Data1
+        hash_type: data
         args: 0x.*
       cell_deps:
       - cell_dep:
