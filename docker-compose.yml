@@ -123,6 +123,17 @@ services:
       - ./fiber/nodes/node3/fiber/sk:/fiber/sk:ro
       - ./fiber/nodes/node3/store:/store
     <<: *preset
+  fiber-web:
+    build:
+      context: ./fiber-web
+      dockerfile: Dockerfile
+      network: host
+    ports:
+      - 3000:3000
+    depends_on:
+      fiber-bootnode:
+        condition: service_healthy
+    <<: *preset
   transfer:
     build:
       context: ./fiber
