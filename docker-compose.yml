@@ -99,6 +99,17 @@ services:
       - 8233:8228
       - 10003:10000
     <<: *preset
+  fiber-web:
+    build:
+      context: ./fiber-web
+      dockerfile: Dockerfile
+      network: host
+    ports:
+      - 3000:3000
+    depends_on:
+      fiber-bootnode:
+        condition: service_healthy
+    <<: *preset
   transfer:
     build:
       context: ./fiber

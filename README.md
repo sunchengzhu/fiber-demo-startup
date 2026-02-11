@@ -35,6 +35,7 @@ The first build requires compiling CKB and Fiber from source, which may take a c
 | fiber-node1 | 8231 | 10001 |
 | fiber-node2 | 8232 | 10002 |
 | fiber-node3 | 8233 | 10003 |
+| fiber-web | 3000 | - |
 
 ### Calling Fiber RPC
 
@@ -47,7 +48,7 @@ curl -X POST http://127.0.0.1:8231 \
 
 ## Docker Images
 
-This project contains 6 Docker images:
+This project contains 7 Docker images:
 
 ### 1. ckb
 
@@ -87,6 +88,20 @@ This project contains 6 Docker images:
 - Transfers 1 billion sUDT to node1, node2, and node3
 - After distribution, each Fiber node has sufficient funds to open payment channels and perform test transactions
 
+### 5. fiber-web
+
+**Purpose**: Web-based monitoring and management panel ([fiber-nodes-monit](https://github.com/gpBlockchain/fiber-nodes-monit))
+
+- Provides a web UI for monitoring and operating Fiber nodes
+- Built with React + TypeScript + Vite, served by a Node.js backend
+- Includes a JSON-RPC proxy that forwards browser requests to Fiber node RPC endpoints
+- Accessible at http://127.0.0.1:3000 after startup
+- To add nodes for monitoring, use the Docker internal service names as RPC URLs:
+  - `http://fiber-bootnode:8228`
+  - `http://fiber-node1:8228`
+  - `http://fiber-node2:8228`
+  - `http://fiber-node3:8228`
+
 ## Directory Structure
 
 ```
@@ -109,6 +124,8 @@ This project contains 6 Docker images:
 │   ├── contracts/          # Fiber contracts
 │   ├── transfer/           # Fund distribution tool source code
 │   └── start.sh            # Fiber node startup script
+├── fiber-web/              # Web monitoring panel
+│   └── Dockerfile          # fiber-nodes-monit image build file
 ```
 
 ## Startup Order
@@ -119,6 +136,7 @@ Docker Compose starts services in the following order:
 2. **transfer** - Runs fund distribution after CKB is ready
 3. **fiber-bootnode** - Starts the bootstrap node after CKB is ready
 4. **fiber-node1/2/3** - Start regular nodes after bootnode is ready
+5. **fiber-web** - Starts the web monitoring panel after bootnode is ready
 
 ## Notes
 
