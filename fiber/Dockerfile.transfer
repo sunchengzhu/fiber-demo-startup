@@ -6,7 +6,11 @@ RUN apt-get install git curl gcc g++ make libclang-dev pkg-config libssl-dev -y
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 
 COPY transfer /transfer
-COPY ckb-keys /ckb-keys
+RUN mkdir /ckb-keys
+COPY nodes/bootnode/ckb/key /ckb-keys/bootnode-key
+COPY nodes/node1/ckb/key /ckb-keys/node1-key
+COPY nodes/node2/ckb/key /ckb-keys/node2-key
+COPY nodes/node3/ckb/key /ckb-keys/node3-key
 
 RUN cd /transfer && /root/.cargo/bin/cargo build --release && cp /transfer/target/release/fiber-demo-startup-transfer-ckb-and-udt /
 
