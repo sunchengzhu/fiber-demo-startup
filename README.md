@@ -26,6 +26,17 @@ docker compose up --build
 
 The first build requires compiling CKB and Fiber from source, which may take a considerable amount of time.
 
+### Clean Up Environment
+
+To reset the Fiber nodes' state (e.g., channels, payment history), stop the services and delete the store directories:
+
+```bash
+docker compose down
+rm -rf fiber/nodes/*/store
+```
+
+Then restart with `docker compose up` to start fresh.
+
 ### Service Ports
 
 | Service | RPC Port | P2P Port |
@@ -113,20 +124,28 @@ This project contains 7 Docker images:
 │   ├── contracts/          # Pre-deployed smart contracts
 │   └── run.sh              # CKB startup script
 ├── fiber/                  # Fiber node configuration
-│   ├── Dockerfile.bootnode # Bootnode image build file
-│   ├── Dockerfile.node1    # Node1 image build file
-│   ├── Dockerfile.node2    # Node2 image build file
-│   ├── Dockerfile.node3    # Node3 image build file
+│   ├── Dockerfile          # Fiber image build file (generic, shared by all nodes)
 │   ├── Dockerfile.transfer # Transfer tool image build file
-│   ├── config-*.yml        # Node configuration files
-│   ├── ckb-keys/           # CKB account private keys
-│   ├── fiber-keys/         # Fiber node private keys
 │   ├── contracts/          # Fiber contracts
+│   ├── start.sh            # Fiber node startup script
 │   ├── transfer/           # Fund distribution tool source code
-│   └── start.sh            # Fiber node startup script
+│   └── nodes/              # Per-node configuration directories
+│       ├── bootnode/       # Bootnode configuration
+│       │   ├── ckb/
+│       │   │   └── key     # CKB account private key
+│       │   ├── config.yml  # Node configuration
+│       │   ├── dev.toml    # Chain spec
+│       │   ├── fiber/
+│       │   │   └── sk      # Fiber node secret key
+│       │   └── store/      # Runtime data (created automatically, delete to reset)
+│       ├── node1/          # Node1 configuration (same structure)
+│       ├── node2/          # Node2 configuration (same structure)
+│       └── node3/          # Node3 configuration (same structure)
 ├── fiber-web/              # Web monitoring panel
 │   └── Dockerfile          # fiber-nodes-monit image build file
 ```
+
+Each node directory follows a standardized layout and is mounted into the container at runtime via Docker volumes. The `store/` directory is created automatically when the node runs and contains the node's state data.
 
 ## Startup Order
 
