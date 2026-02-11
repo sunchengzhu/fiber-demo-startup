@@ -26,7 +26,7 @@ services:
       context: ./fiber
       dockerfile: Dockerfile
       args:
-        NODE_NAME: bootnode
+        NODE_DIR: nodes/bootnode
       network: host
     healthcheck:
       test: ["CMD", "curl", "http://127.0.0.1:41716"]
@@ -46,7 +46,7 @@ services:
       context: ./fiber
       dockerfile: Dockerfile
       args:
-        NODE_NAME: node1
+        NODE_DIR: nodes/node1
       network: host
     healthcheck:
       test: ["CMD", "curl", "http://127.0.0.1:41716"]
@@ -68,7 +68,7 @@ services:
       context: ./fiber
       dockerfile: Dockerfile
       args:
-        NODE_NAME: node2
+        NODE_DIR: nodes/node2
       network: host
     healthcheck:
       test: ["CMD", "curl", "http://127.0.0.1:41716"]
@@ -90,7 +90,7 @@ services:
       context: ./fiber
       dockerfile: Dockerfile
       args:
-        NODE_NAME: node3
+        NODE_DIR: nodes/node3
       network: host
     healthcheck:
       test: ["CMD", "curl", "http://127.0.0.1:41716"]

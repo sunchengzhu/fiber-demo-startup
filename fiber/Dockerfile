@@ -19,20 +19,20 @@ RUN apt-get update && \
     apt-get install -y curl expect jq socat openssl && \
     rm -rf /var/lib/apt/lists/*
 
-ARG NODE_NAME
-RUN test -n "${NODE_NAME}" || (echo "NODE_NAME build arg must be set" && exit 1)
+ARG NODE_DIR
+RUN test -n "${NODE_DIR}" || (echo "NODE_DIR build arg must be set" && exit 1)
 
 COPY --from=builder /root/fiber/target/release/fnn /fnn
 
-COPY config-${NODE_NAME}.yml /config.yml
-COPY dev.toml /
+COPY ${NODE_DIR}/config.yml /config.yml
+COPY ${NODE_DIR}/dev.toml /
 COPY contracts /contracts
 
 RUN mkdir /ckb
-COPY ckb-keys/${NODE_NAME}-key /ckb/key
+COPY ${NODE_DIR}/ckb/key /ckb/key
 
 RUN mkdir /fiber
-COPY fiber-keys/${NODE_NAME}-key /fiber/sk
+COPY ${NODE_DIR}/fiber/sk /fiber/sk
 RUN chmod 400 /fiber/sk
 
 COPY start.sh /start.sh
