@@ -23,6 +23,9 @@ COPY --from=builder /root/fiber/target/release/fnn /fnn
 
 COPY contracts /contracts
 
+ARG NODE_NAME=bootnode
+COPY nodes/${NODE_NAME}/ckb/key /ckb/key
+
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 

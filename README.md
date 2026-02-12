@@ -108,10 +108,10 @@ This project contains 7 Docker images:
 - Includes a JSON-RPC proxy that forwards browser requests to Fiber node RPC endpoints
 - Accessible at http://127.0.0.1:3000 after startup
 - To add nodes for monitoring, use the Docker internal service names as RPC URLs:
-  - `http://fiber-bootnode:8228`
-  - `http://fiber-node1:8228`
-  - `http://fiber-node2:8228`
-  - `http://fiber-node3:8228`
+  - `http://fiber-bootnode:10000`
+  - `http://fiber-node1:10000`
+  - `http://fiber-node2:10000`
+  - `http://fiber-node3:10000`
 
 ## Directory Structure
 

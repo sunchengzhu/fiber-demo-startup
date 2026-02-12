@@ -26,6 +26,8 @@ services:
       context: ./fiber
       dockerfile: Dockerfile
       network: host
+      args:
+        NODE_NAME: bootnode
     healthcheck:
       test: ["CMD", "curl", "http://127.0.0.1:41716"]
       interval: 5s
@@ -38,7 +40,6 @@ services:
     volumes:
       - ./fiber/nodes/bootnode/config.yml:/config.yml:ro
       - ./fiber/nodes/bootnode/dev.toml:/dev.toml:ro
-      - ./fiber/nodes/bootnode/ckb/key:/ckb/key
       - ./fiber/nodes/bootnode/fiber/sk:/fiber/sk:ro
       - ./fiber/nodes/bootnode/store:/store
     depends_on:
@@ -50,6 +51,8 @@ services:
       context: ./fiber
       dockerfile: Dockerfile
       network: host
+      args:
+        NODE_NAME: node1
     healthcheck:
       test: ["CMD", "curl", "http://127.0.0.1:41716"]
       interval: 5s
@@ -67,7 +70,6 @@ services:
     volumes:
       - ./fiber/nodes/node1/config.yml:/config.yml:ro
       - ./fiber/nodes/node1/dev.toml:/dev.toml:ro
-      - ./fiber/nodes/node1/ckb/key:/ckb/key
       - ./fiber/nodes/node1/fiber/sk:/fiber/sk:ro
       - ./fiber/nodes/node1/store:/store
     <<: *preset
@@ -76,6 +78,8 @@ services:
       context: ./fiber
       dockerfile: Dockerfile
       network: host
+      args:
+        NODE_NAME: node2
     healthcheck:
       test: ["CMD", "curl", "http://127.0.0.1:41716"]
       interval: 5s
@@ -93,7 +97,6 @@ services:
     volumes:
       - ./fiber/nodes/node2/config.yml:/config.yml:ro
       - ./fiber/nodes/node2/dev.toml:/dev.toml:ro
-      - ./fiber/nodes/node2/ckb/key:/ckb/key
       - ./fiber/nodes/node2/fiber/sk:/fiber/sk:ro
       - ./fiber/nodes/node2/store:/store
     <<: *preset
@@ -102,6 +105,8 @@ services:
       context: ./fiber
       dockerfile: Dockerfile
       network: host
+      args:
+        NODE_NAME: node3
     healthcheck:
       test: ["CMD", "curl", "http://127.0.0.1:41716"]
       interval: 5s
@@ -119,7 +124,6 @@ services:
     volumes:
       - ./fiber/nodes/node3/config.yml:/config.yml:ro
       - ./fiber/nodes/node3/dev.toml:/dev.toml:ro
-      - ./fiber/nodes/node3/ckb/key:/ckb/key
       - ./fiber/nodes/node3/fiber/sk:/fiber/sk:ro
       - ./fiber/nodes/node3/store:/store
     <<: *preset
