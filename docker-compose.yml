@@ -33,8 +33,8 @@ services:
       retries: 10
       start_period: 20s
     ports:
-      - 8230:8228
-      - 10000:10000
+      - 8230:10000
+      - 10000:8228
     volumes:
       - ./fiber/nodes/bootnode/config.yml:/config.yml:ro
       - ./fiber/nodes/bootnode/dev.toml:/dev.toml:ro
@@ -62,8 +62,8 @@ services:
       fiber-bootnode:
         condition: service_healthy
     ports:
-      - 8231:8228
-      - 10001:10000
+      - 8231:10000
+      - 10001:8228
     volumes:
       - ./fiber/nodes/node1/config.yml:/config.yml:ro
       - ./fiber/nodes/node1/dev.toml:/dev.toml:ro
@@ -88,8 +88,8 @@ services:
       fiber-bootnode:
         condition: service_healthy
     ports:
-      - 8232:8228
-      - 10002:10000
+      - 8232:10000
+      - 10002:8228
     volumes:
       - ./fiber/nodes/node2/config.yml:/config.yml:ro
       - ./fiber/nodes/node2/dev.toml:/dev.toml:ro
@@ -114,8 +114,8 @@ services:
       fiber-bootnode:
         condition: service_healthy
     ports:
-      - 8233:8228
-      - 10003:10000
+      - 8233:10000
+      - 10003:8228
     volumes:
       - ./fiber/nodes/node3/config.yml:/config.yml:ro
       - ./fiber/nodes/node3/dev.toml:/dev.toml:ro
