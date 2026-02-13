@@ -42,17 +42,17 @@ Then restart with `docker compose up` to start fresh.
 | Service | RPC Port | P2P Port |
 |---------|----------|----------|
 | CKB | 8114 | - |
-| fiber-bootnode | 8230 | 10000 |
-| fiber-node1 | 8231 | 10001 |
-| fiber-node2 | 8232 | 10002 |
-| fiber-node3 | 8233 | 10003 |
+| fiber-bootnode | 10000 | 8230 |
+| fiber-node1 | 10001 | 8231 |
+| fiber-node2 | 10002 | 8232 |
+| fiber-node3 | 10003 | 8233 |
 | fiber-web | 3000 | - |
 
 ### Calling Fiber RPC
 
 ```bash
 # Query node info
-curl -X POST http://127.0.0.1:8231 \
+curl -X POST http://127.0.0.1:10001 \
   -H "Content-Type: application/json" \
   -d '{"jsonrpc":"2.0","method":"node_info","params":[],"id":1}'
 ```
@@ -78,7 +78,7 @@ This project contains 7 Docker images:
 - Other Fiber nodes discover peers through this node
 - Runs the Fiber daemon (fnn)
 - Configured as the entry point for the gossip network
-- RPC port: 8230, P2P port: 10000
+- RPC port: 10000, P2P port: 8230
 
 ### 3. fiber-node1 / fiber-node2 / fiber-node3
 
